@@ -50,20 +50,20 @@ _post_installation_processes() {
 	mkdir -p AppDir/.junest/usr/lib/virtualbox/additions
 	cp -r VBoxGuestAdditions.iso AppDir/.junest/usr/lib/virtualbox/additions/ || exit 1
 
-	# Add extension pack
-	if ! test -f ./Extension_Pack.tar; then
-		wget https://download.virtualbox.org/virtualbox/"${vboxver}"/Oracle_VirtualBox_Extension_Pack-"${vboxver}".vbox-extpack -O ./Extension_Pack.tar
-	fi
-	mkdir -p shrunk
-	tar xfC ./Extension_Pack.tar shrunk
-	rm -r shrunk/{darwin*,solaris*,win*}
-	tar -c --gzip --file shrunk.vbox-extpack -C shrunk .
-	mkdir -p AppDir/.junest/usr/share/virtualbox/extensions
-	cp -r shrunk.vbox-extpack AppDir/.junest/usr/share/virtualbox/extensions/Oracle_VirtualBox_Extension_Pack-"${vboxver}".vbox-extpack
-	mkdir -p AppDir/.junest/usr/share/licenses/virtualbox-ext-oracle/
-	cp -r shrunk/ExtPack-license.txt AppDir/.junest/usr/share/licenses/virtualbox-ext-oracle/PUEL
-	mkdir -p AppDir/.junest/usr/lib/virtualbox/ExtensionPacks/Oracle_VirtualBox_Extension_Pack
-	cp -r shrunk/* AppDir/.junest/usr/lib/virtualbox/ExtensionPacks/Oracle_VirtualBox_Extension_Pack/
+	# Disabling extension pack addition
+	# if ! test -f ./Extension_Pack.tar; then
+	# 	wget https://download.virtualbox.org/virtualbox/"${vboxver}"/Oracle_VirtualBox_Extension_Pack-"${vboxver}".vbox-extpack -O ./Extension_Pack.tar
+	# fi
+	# mkdir -p shrunk
+	# tar xfC ./Extension_Pack.tar shrunk
+	# rm -r shrunk/{darwin*,solaris*,win*}
+	# tar -c --gzip --file shrunk.vbox-extpack -C shrunk .
+	# mkdir -p AppDir/.junest/usr/share/virtualbox/extensions
+	# cp -r shrunk.vbox-extpack AppDir/.junest/usr/share/virtualbox/extensions/Oracle_VirtualBox_Extension_Pack-"${vboxver}".vbox-extpack
+	# mkdir -p AppDir/.junest/usr/share/licenses/virtualbox-ext-oracle/
+	# cp -r shrunk/ExtPack-license.txt AppDir/.junest/usr/share/licenses/virtualbox-ext-oracle/PUEL
+	# mkdir -p AppDir/.junest/usr/lib/virtualbox/ExtensionPacks/Oracle_VirtualBox_Extension_Pack
+	# cp -r shrunk/* AppDir/.junest/usr/lib/virtualbox/ExtensionPacks/Oracle_VirtualBox_Extension_Pack/
 
 	# Install the "VBoxCreateUSBNode.sh" script in /usr/lib/virtualbox
 	mkdir -p AppDir/.junest/usr/lib/virtualbox
